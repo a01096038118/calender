@@ -267,10 +267,10 @@ public class MemberService {
 
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         // simpleMailMessage.setTo(toMailAddr);
-        simpleMailMessage.setTo("nikecafe@naver.com");
+        simpleMailMessage.setTo("same213@naver.com");
         simpleMailMessage.setSubject("[MyCalendar] 새 비밀번호 안내입니다.");
         simpleMailMessage.setText("새 비밀번호: " + newPassword);
-        simpleMailMessage.setFrom("hohasic@gmail.com");
+        simpleMailMessage.setFrom("a01096038118@gmail.com");
 
         javaMailSender.send(simpleMailMessage);
 
