@@ -92,5 +92,39 @@ public class PlannerController {
         return ResponseEntity.ok(resultMap);
     }
 
+    // 일정 수정하기
+    @PutMapping("/plan/{no}")
+    public ResponseEntity<Map<String, Object>> modifyPlan(
+            @PathVariable("no") int no,
+            PlannerDto plannerDto,
+            @RequestParam(value="file", required = false) MultipartFile file,
+            Principal principal
+    ) {
+        log.info("modifyPlan()");
+
+        plannerDto.setNo(no);
+        if(file != null) {
+            String signInedMemberID =  principal.getName();
+            String savedFileName = uploadFileService.upload(signInedMemberID, file);
+
+            if(savedFileName != null) {
+                plannerDto.setImg_name(savedFileName);
+                plannerDto.setOri_owner_id(signInedMemberID);
+
+                Map<String, Object> resultMap = plannerService.modifyPlan(plannerDto);
+                return ResponseEntity.ok(resultMap);
+
+            } else {
+                Map<String, Object> errorMap = new HashMap<>();
+                errorMap.put("message", "File upload Fail");
+                return ResponseEntity.badRequest().body(errorMap);
+
+            }
+        } else {
+            Map<String, Object> resultMap = plannerService.modifyPlan(plannerDto);
+            return ResponseEntity.ok(resultMap);
+        }
+
+    }
 
 }

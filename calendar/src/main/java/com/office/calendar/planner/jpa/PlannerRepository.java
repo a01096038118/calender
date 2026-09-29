@@ -13,4 +13,6 @@ public interface PlannerRepository extends JpaRepository<PlannerEntity, Integer>
     int deleteByPlanNo(int planNo);
 
 
+
+
 }
